@@ -76,7 +76,7 @@ const BundleNewPage = () => {
           isLoading={isSubmitting}
           type="submit"
         >
-          Submit
+          Kreiraj
         </Button>
       </Stack>
     </form>
