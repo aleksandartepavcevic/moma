@@ -66,7 +66,7 @@ const BundleList = ({ bundles }: { bundles: Bundle[] }) => {
             <Tr>
               <Th>Ime</Th>
               <Th>Ulozeno (RSD)</Th>
-              <Th>Profit (RSD)</Th>
+              <Th>Stanje (RSD)</Th>
               <Th>Datum</Th>
             </Tr>
           </Thead>
