@@ -71,7 +71,7 @@ const BundleEditForm = ({ defaultValues }: { defaultValues: EditBundle }) => {
           isLoading={isSubmitting}
           type="submit"
         >
-          Submit
+          Izmeni
         </Button>
       </Stack>
     </form>

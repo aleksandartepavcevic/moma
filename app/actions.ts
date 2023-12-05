@@ -50,6 +50,7 @@ export async function handleAddBundleSale(data: UpdateBundle & { id: number }) {
         revenue: { increment: data.amount },
       },
     });
+    revalidatePath(`/`);
     revalidatePath(`/bundle/${data.id}`);
     return { message: "Prodaja uspesno dodata.", status: 200 };
   } catch (err) {
