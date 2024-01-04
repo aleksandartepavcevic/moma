@@ -1,7 +1,7 @@
 import { db } from "@/app/db";
 import BundleAddSale from "@/components/bundle-add-sale";
 import BundleHeader from "@/components/bundle-header";
-import { Bundle } from "@/components/table";
+import BundleSales from "@/components/bundle-sales";
 import {
   Box,
   Flex,
@@ -11,19 +11,27 @@ import {
   StatLabel,
   StatNumber,
 } from "@chakra-ui/react";
+import { Bundle, Sale } from "@prisma/client";
 import React from "react";
 
 const BundlePage = async ({ params }: { params: { id: string } }) => {
-  const bundle = (await db.bundle.findUnique({
+  const bundle = await db.bundle.findUnique({
     where: { id: Number(params.id) },
-  })) as Bundle;
+    include: {
+      sales: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+    },
+  });
 
   console.log(bundle);
 
   const profit = Number(bundle?.revenue) - Number(bundle?.paid);
   return (
     <Box>
-      <BundleHeader bundle={bundle} />
+      <BundleHeader bundle={bundle as Bundle} />
       <Flex my={6}>
         <Stat>
           <StatLabel>Ulozeno</StatLabel>
@@ -37,7 +45,8 @@ const BundlePage = async ({ params }: { params: { id: string } }) => {
           </StatNumber>
         </Stat>
       </Flex>
-      <BundleAddSale bundle={bundle} />
+      <BundleAddSale bundle={bundle as Bundle} />
+      <BundleSales sales={bundle?.sales as Sale[]} />
     </Box>
   );
 };

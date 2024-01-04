@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  AddIcon,
-  ChevronDownIcon,
-  DeleteIcon,
-  EditIcon,
-  SettingsIcon,
-} from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, SettingsIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
@@ -20,8 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Bundle } from "./table";
 import { handleDeleteBundle } from "@/app/actions";
+import { Bundle } from "@prisma/client";
 
 const BundleHeader = ({ bundle }: { bundle?: Bundle }) => {
   const router = useRouter();

@@ -50,6 +50,15 @@ export async function handleAddBundleSale(data: UpdateBundle & { id: number }) {
         revenue: { increment: data.amount },
       },
     });
+    await db.sale.create({
+      data: {
+        name: data.name,
+        revenue: data.amount,
+        bundle: {
+          connect: { id: data.id },
+        },
+      },
+    });
     revalidatePath(`/`);
     revalidatePath(`/bundle/${data.id}`);
     return { message: "Prodaja uspesno dodata.", status: 200 };

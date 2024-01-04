@@ -1,6 +1,6 @@
 "use client";
 
-import { handleAddBundleSale, handleAddNewBundle } from "@/app/actions";
+import { handleAddBundleSale } from "@/app/actions";
 import {
   Box,
   Button,
@@ -12,12 +12,12 @@ import {
   Stack,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { Bundle } from "@prisma/client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Bundle } from "./table";
 
 export type UpdateBundle = {
+  name: string;
   amount: number;
 };
 
@@ -32,6 +32,7 @@ const BundleAddSale = ({ bundle }: { bundle: Bundle }) => {
 
   async function onSubmit(values: UpdateBundle) {
     const res = await handleAddBundleSale({
+      name: values.name,
       amount: Number(values.amount),
       id: bundle.id,
     });
@@ -47,6 +48,19 @@ const BundleAddSale = ({ bundle }: { bundle: Bundle }) => {
         <Heading size="md" mb={2}>
           Dodaj prodaju
         </Heading>
+        <FormControl isInvalid={!!errors.name}>
+          <FormLabel htmlFor="name">Naziv</FormLabel>
+          <Input
+            id="name"
+            type="text"
+            {...register("name", {
+              required: "Obavezno polje",
+            })}
+          />
+          <FormErrorMessage>
+            {errors.name && errors.name.message}
+          </FormErrorMessage>
+        </FormControl>
         <FormControl isInvalid={!!errors.amount}>
           <FormLabel htmlFor="amount">Iznos</FormLabel>
           <Input
