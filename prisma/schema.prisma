@@ -8,30 +8,22 @@ datasource db {
   relationMode = "prisma"
 }
 
-model bundle {
-  id     Int    @id @default(autoincrement())
-  name  String
-  paid Int
-  revenue Int @default(0)
-  createdAt DateTime @default(now())
-}
-
 model Bundle {
-  id     Int    @id @default(autoincrement())
-  name  String
-  paid Int
-  revenue Int @default(0)
+  id        Int      @id @default(autoincrement())
+  name      String
+  paid      Int
+  revenue   Int      @default(0)
   createdAt DateTime @default(now())
-  sales Sale[]
+  sales     Sale[]
 }
 
 model Sale {
-  id Int @id @default(autoincrement())
-  name String
-  revenue Int @default(0)
+  id        Int      @id @default(autoincrement())
+  name      String
+  revenue   Int      @default(0)
   createdAt DateTime @default(now())
-  bundle Bundle @relation(fields: [bundleId], references: [id])
-  bundleId Int
+  bundleId  Int
+  bundle    Bundle   @relation(fields: [bundleId], references: [id])
 
   @@index([bundleId])
 }
