@@ -72,7 +72,7 @@ export async function handleDeleteBundle(id: number) {
   try {
     await db.sale.deleteMany({
       where: {
-        bundleId: id,
+        bundleid: id,
       },
     });
     await db.bundle.delete({

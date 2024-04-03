@@ -12,7 +12,7 @@ import {
   Stack,
   useToast,
 } from "@chakra-ui/react";
-import { Bundle } from "@prisma/client";
+import { bundle as Bundle } from "@prisma/client";
 import React from "react";
 import { useForm } from "react-hook-form";
 

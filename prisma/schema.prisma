@@ -3,27 +3,27 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model Bundle {
+model bundle {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String   @db.VarChar(191)
   paid      Int
   revenue   Int      @default(0)
-  createdAt DateTime @default(now())
-  sales     Sale[]
+  createdat DateTime @default(dbgenerated("CURRENT_TIMESTAMP(3)"))
+  sales sale[]
 }
 
-model Sale {
+model sale {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String   @db.VarChar(191)
   revenue   Int      @default(0)
-  createdAt DateTime @default(now())
-  bundleId  Int
-  bundle    Bundle   @relation(fields: [bundleId], references: [id])
+  createdat DateTime @default(dbgenerated("CURRENT_TIMESTAMP(3)"))
+  bundleid  Int
+  bundle    bundle   @relation(fields: [bundleid], references: [id])
 
-  @@index([bundleId])
+  @@index([bundleid])
 }

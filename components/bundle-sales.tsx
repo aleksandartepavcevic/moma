@@ -10,7 +10,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
-import { Sale } from "@prisma/client";
+import { sale as Sale } from "@prisma/client";
 
 const BundleSales = ({ sales }: { sales: Sale[] }) => {
   return (
@@ -33,7 +33,7 @@ const BundleSales = ({ sales }: { sales: Sale[] }) => {
                 <Tr key={sale.id}>
                   <Td>{sale.name}</Td>
                   <Td>{sale.revenue}</Td>
-                  <Td>{sale.createdAt.toLocaleDateString()}</Td>
+                  <Td>{sale.createdat.toLocaleDateString()}</Td>
                 </Tr>
               );
             })}

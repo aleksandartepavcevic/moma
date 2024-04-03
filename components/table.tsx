@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import TableHeader from "./table-header";
 import TableRow from "./table-row";
-import { Bundle } from "@prisma/client";
+import { bundle as Bundle } from "@prisma/client";
 
 const BundleList = ({ bundles }: { bundles: Bundle[] }) => {
   return (
@@ -39,7 +39,7 @@ const BundleList = ({ bundles }: { bundles: Bundle[] }) => {
                   <Td>{bundle.name}</Td>
                   <Td>{bundle.paid}</Td>
                   <Td color={profit < 0 ? "red" : "green"}>{profit}</Td>
-                  <Td>{bundle.createdAt.toLocaleDateString()}</Td>
+                  <Td>{bundle.createdat.toLocaleDateString()}</Td>
                 </TableRow>
               );
             })}

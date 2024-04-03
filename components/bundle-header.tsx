@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import React from "react";
 import { handleDeleteBundle } from "@/app/actions";
-import { Bundle } from "@prisma/client";
+import { bundle as Bundle } from "@prisma/client";
 
 const BundleHeader = ({ bundle }: { bundle?: Bundle }) => {
   const router = useRouter();

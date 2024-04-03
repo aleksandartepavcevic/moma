@@ -11,7 +11,7 @@ import {
   StatLabel,
   StatNumber,
 } from "@chakra-ui/react";
-import { Bundle, Sale } from "@prisma/client";
+import { bundle as Bundle, sale as Sale } from "@prisma/client";
 import React from "react";
 
 const BundlePage = async ({ params }: { params: { id: string } }) => {
@@ -20,7 +20,7 @@ const BundlePage = async ({ params }: { params: { id: string } }) => {
     include: {
       sales: {
         orderBy: {
-          createdAt: "desc",
+          createdat: "desc",
         },
       },
     },
@@ -36,7 +36,7 @@ const BundlePage = async ({ params }: { params: { id: string } }) => {
         <Stat>
           <StatLabel>Ulozeno</StatLabel>
           <StatNumber>{bundle?.paid} RSD</StatNumber>
-          <StatHelpText>{bundle?.createdAt.toLocaleDateString()}</StatHelpText>
+          <StatHelpText>{bundle?.createdat.toLocaleDateString()}</StatHelpText>
         </Stat>
         <Stat>
           <StatLabel>Stanje</StatLabel>
