@@ -10,5 +10,18 @@ export default async function Home() {
     },
   });
 
-  return <BundleList bundles={bundles} />;
+  return (
+    <h1
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      Sa mnom si nasao da se zajebavas
+    </h1>
+  );
+
+  // return <BundleList bundles={bundles} />;
 }
