@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { sale as Sale } from "@prisma/client";
+import BundleSalesRow from "./bundle-sales-row";
 
 const BundleSales = ({ sales }: { sales: Sale[] }) => {
   return (
@@ -30,11 +31,15 @@ const BundleSales = ({ sales }: { sales: Sale[] }) => {
           <Tbody>
             {sales?.map((sale) => {
               return (
-                <Tr key={sale.id}>
+                <BundleSalesRow
+                  bundleId={String(sale.bundleid)}
+                  saleId={String(sale.id)}
+                  key={sale.id}
+                >
                   <Td>{sale.name}</Td>
                   <Td>{sale.revenue}</Td>
                   <Td>{sale.createdat.toLocaleDateString()}</Td>
-                </Tr>
+                </BundleSalesRow>
               );
             })}
           </Tbody>

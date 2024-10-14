@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { NewBundle } from "./bundle/new/page";
 import { db } from "./db";
 import { UpdateBundle } from "@/components/bundle-add-sale";
+import { UpdateSale } from "@/components/edit-sale-form";
 
 export async function handleAddNewBundle(data: NewBundle) {
   try {
@@ -96,6 +97,66 @@ export async function getBundle(id: number) {
       },
     });
     return { data: bundle, status: 200 };
+  } catch (err) {
+    console.log(err);
+    return { message: "Zovi Acketa :)", status: 500 };
+  }
+}
+
+export async function getSale(id: number) {
+  try {
+    const sale = await db.sale.findUnique({
+      where: {
+        id,
+      },
+    });
+    return { data: sale, status: 200 };
+  } catch (err) {
+    console.log(err);
+    return { message: "Zovi Acketa :)", status: 500 };
+  }
+}
+
+export async function handleUpdateSale(
+  data: UpdateSale & { bundleId: number; saleId: number }
+) {
+  try {
+    const updatedSale = await db.sale.update({
+      where: {
+        id: data.saleId,
+      },
+      data: {
+        name: data.name,
+        revenue: data.revenue,
+      },
+    });
+
+    const bundleSales = await db.sale.findMany({
+      where: {
+        bundleid: updatedSale.bundleid,
+      },
+      select: {
+        revenue: true,
+      },
+    });
+
+    const newTotalRevenue = bundleSales.reduce(
+      (acc, sale) => acc + sale.revenue,
+      0
+    );
+
+    await db.bundle.update({
+      where: {
+        id: data.bundleId,
+      },
+      data: {
+        revenue: newTotalRevenue,
+      },
+    });
+
+    revalidatePath(`/`);
+    revalidatePath(`/bundle/${data.bundleId}`);
+    return { message: "Prodaja uspesno izmenjena.", status: 200 };
   } catch (err) {
     console.log(err);
     return { message: "Zovi Acketa :)", status: 500 };

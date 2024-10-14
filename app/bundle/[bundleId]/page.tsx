@@ -14,9 +14,9 @@ import {
 import { bundle as Bundle, sale as Sale } from "@prisma/client";
 import React from "react";
 
-const BundlePage = async ({ params }: { params: { id: string } }) => {
+const BundlePage = async ({ params }: { params: { bundleId: string } }) => {
   const bundle = await db.bundle.findUnique({
-    where: { id: Number(params.id) },
+    where: { id: Number(params.bundleId) },
     include: {
       sales: {
         orderBy: {
